@@ -2,13 +2,18 @@ import React from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import FileUpload from '../components/FileUpload';
 import app from './../helpers/firebase';
+import { getStorage, deleteObject } from 'firebase/storage';
+import {ref as storageRef } from 'firebase/storage';
 import { getDatabase, ref, set, onValue, push, child, update, removeValue } from "firebase/database";
 
 function ControlPanel() {
     const location = useLocation();
     const navigate = useNavigate();
     
-    const db = getDatabase();   
+    const db = getDatabase();
+    const storage = getStorage();
+    
+    let generatedTable = <h6>Table</h6>;
 
     const getFileData = (filedata) => {
         console.log("File uploaded: " + filedata.url);
@@ -41,46 +46,24 @@ function ControlPanel() {
     }
     
     const buildTable = () => {
-        /*
-        const models = [
-            {
-                "title": "BMI RiskLevel",
-                "description": "Determine your risk level based on your BMI (I'll help you define your BMI)",
-                "file": {
-                    "name": "BMILevel.dmn",
-                    "url": "https://wearabout.eco/assets/BMILevel.dmn"
-                }
-            },
-            {
-                "title": "Car Insurance",
-                "description": "I will tell you if you're eligible for compensation after an accident",
-                "file": {
-                    "name": "InsuranceFixed.dmn",
-                    "url": "#"
-                }
-            },
-            {
-                "title": "COPD Severeness",
-                "description": "I will help you determine if you have Chronic Obstructive Pulmonary Disease",
-                "file": {
-                    "name": "COPD_Severeness.dmn",
-                    "url": "##"
-                }
-            }
-        ];
-        */
        let models = [];
         
         const modelRef = ref(db, 'users/44/models/');
         onValue(modelRef, (snapshot) => {
             const data = snapshot.val();
-            const keys = Object.keys(snapshot.val());
-            keys.forEach((key) => {
-                console.log(data[key].title);
-                data[key].id = key;
-                models.push(data[key]);
-            });
+            if(data !== null){
+                const keys = Object.keys(snapshot.val());
+                keys.forEach((key) => {
+                    console.log(data[key].title);
+                    data[key].id = key;
+                    models.push(data[key]);
+                });
+            }
         });
+
+        if(models.length === 0){
+            return <tr><td>No files uploaded</td></tr>
+        }
 
         return models.map(
             (model, index)=>{
@@ -90,25 +73,42 @@ function ControlPanel() {
                     className = "tg-0lax bg-grey";
                 }
                 console.log(model.title);
-                return(
+                return( 
                     <tr key={model.file.url}>
                         <td className={className}>{model.title}</td>
                         <td className={className}>{model.description}</td>
                         <td className={className}>{model.file.name}</td>
                         <td className={className}>
                             <a href={model.file.url} target="_blank">Download</a>
-                            <button onClick={()=>{deleteModel(model.id)}}>Delete</button>
+                            <button onClick={()=>{deleteModel(model.id, model.file.url)}}>Delete</button>
                         </td>
                     </tr>
-                )
+                );
             }
         )
     };
+    generatedTable = buildTable(); 
 
-    const deleteModel = (id) => {
+    const deleteModel = (id, url) => {
         console.log('Delete model ' + id);
+        let fileName = url.replace("%2F", "/").split('models');
+        fileName = 'models' + fileName[fileName.length - 1].split("?")[0];
+        console.log(fileName);
+
+        // 1. Delete the file from cloud storage
+        const fileRef = storageRef(storage, fileName);
+        deleteObject(fileRef).then(() => {
+            console.log('file deleted');
+        }).catch((error) => {
+            console.log(error);
+        });
+
+        // 2. Delete entry from database
         const modelRef = ref(db, 'users/44/models/');
-        set(child(modelRef, id),null);
+        set(child(modelRef, id), null);
+        
+        // Rebuild table
+        generatedTable = buildTable();
     };
 
     return(
@@ -131,7 +131,7 @@ function ControlPanel() {
                     </tr>
                     </thead>
                     <tbody>
-                        {buildTable()}
+                        {generatedTable}
                     </tbody>
                 </table>
             </section>

@@ -66,7 +66,7 @@ const FileUpload = ({setFileData}) => {
       <>
       <section className='optionGroup'>
       <h4>Upload DMN model</h4>
-      <span className="info">&nbsp; &nbsp; (Max size: 15MB)</span>
+      <span className="info">&nbsp; &nbsp; (Max size: 2MB)</span>
       <span className="check-done">&#10003;</span>
       <form type="multipart/form-data" className="centermargin">
             <FileUploader disabled={disabled} handleChange={upload} name="file" maxSize="2" />

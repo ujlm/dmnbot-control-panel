@@ -1,0 +1,412 @@
+@font-face {
+    font-family: "Poppins";
+    src: url("./../assets/fonts/Poppins-Bold.ttf") format("tff");
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("./../assets/fonts/Poppins-Regular.ttf") format("ttf");
+    font-weight: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("./../assets/fonts/Poppins-SemiBold.ttf") format("ttf");
+    font-weight:500;
+    font-display: swap;
+  }
+
+*{
+    box-sizing: border-box;
+}
+html, body{
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    background-color: #fff;
+    padding: 0;
+    margin:0;
+}
+.App, .container{
+    background-color: #fff;
+}
+.fixed{
+    position: fixed;
+}
+.left-border-radius{
+    border-radius: 9px 0 0 9px;
+}
+.right-border-radius{
+    border-radius: 0 9px 9px 0;
+}
+
+/* [Start] Table */
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:0px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border: none;font-family:Arial, sans-serif;font-size:14px;background-color: rgb(0, 0, 0);color:#fff;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+.bg-grey{
+    background-color: rgb(235, 235, 235);
+}
+/* [End] table */
+
+/* [Start] Form styling */
+form input{
+    margin: 10px;
+    padding: 5px;
+}
+form input[type="submit"]{
+    border: none;
+}
+/* [End] Form styling */
+
+/* Header */
+header{
+    padding: 15px;
+}
+header.brand{
+    height: 50px;
+    padding: 15px;
+    position: fixed;
+}
+header, header a, header span{
+    color: #060606;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+/* end header */
+.centermargin{
+    position: relative;
+    max-width: 90vw;
+    margin: auto;
+    text-align: center;
+}
+.spacing-100{
+    height: 100px;   
+}
+
+/* Drop file */
+.iciELI{
+    margin: 20px auto!important;
+}
+.nodisp{
+    display: none!important;
+}
+.top-rounded-corner{
+    border-radius: 9px 9px 0 0;
+}
+
+video{
+    border-radius: 9px 9px 0 0;
+}
+
+.center-text{
+    text-align: center;
+}
+.sx-center{
+    position: relative;
+    width: 80vw;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 15px;
+}
+.sx-video{
+    width:860px;
+}
+.sx-center h1,h2{
+    text-align: center;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+.flex-center{
+    justify-content: center!important;
+}
+.card-wrapper{
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+.card{
+    min-width: 100px;
+    min-height: 70px;
+    border-radius: 9px;
+    margin: 15px;
+    padding: 9px;
+    background-color: #fff;
+    box-shadow:0 5px 5px 0 rgb(154 160 185 / 5%), 0 5px 30px 0 rgb(166 173 201 / 22%);
+}
+.card-not-selected{
+    opacity: 40%;
+}
+
+.big-card{
+    padding: 15px;
+    min-width: 50vw;
+    text-align: center;
+}
+
+textarea {
+    font-family: 'Poppins', sans-serif;
+    width: 95%;
+    height: 30vh;
+    min-height: 100px;
+    border: none;
+    margin: auto;
+    border-radius: 9px;
+    padding:10px;
+    outline: none;
+}
+.card-video-prev{
+    width: 384px;
+    height: 286px;
+    background-size: 100%;
+    background-position-x: center;
+    background-position-y: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in 0s;
+    padding: 0!important;
+}
+
+.player-wrapper{
+    height: 216px;
+}
+
+.card-video-prev:hover{
+    background-size: 110%;
+}
+.vid-info{
+    padding: 3px 0 0 15px;
+}
+span{
+    font-size: 12px;
+    font-weight: normal;
+    color: #333;
+}
+
+.card .title{
+    font-weight: bold;
+    font-size: 16px;
+}
+.card .price{
+    float: right;
+    color: rgb(136, 136, 136);
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 15px;
+}
+.card .description{
+    color: rgb(102, 102, 102);
+}
+
+.btn{
+    padding: 10px;
+    border-radius: 7px;
+    text-decoration: none;
+    background-color: #6767b1;
+    color: ivory;
+    font-size: 14px;
+    display: inline-block;
+    margin: auto;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #7777c9;
+}
+.bottombar.disabled{
+    background-color: rgb(190, 190, 190);
+}
+.disabled .btn, .bottombar.disabled .btn{
+    background-color: rgb(163, 163, 163);
+    color: rgb(212, 212, 212);
+    cursor: not-allowed;
+}
+.disabled .btn:hover, .bottombar.disabled .btn:hover{
+    background-color: rgb(136, 135, 135);
+}
+
+/* optionGroup */
+.optionGroup{
+    background-color: #fff;
+    border-radius: 9px;
+    padding: 10px;
+    margin: 10px auto;
+    width: 50%;
+    min-width: 440px;
+    box-shadow:0 5px 5px 0 rgb(154 160 185 / 5%), 0 5px 30px 0 rgb(166 173 201 / 22%);
+}
+.optionGroup .check-done{
+    display: none;
+}
+.optionGroup.color{
+    height: 220px;
+}
+.optionGroup h4{
+    display: inline-block;
+}
+.optionGroup p {
+    font-size: 12px;
+}
+.collapsed{
+    background-color: #2ecc71;
+    color: #fff;
+    cursor: pointer;
+}
+.collapsed:hover{
+    background-color: #27ae60;
+}
+.collapsed .check-done{
+    display: block;
+}
+.collapsed h4{
+    margin: 0;
+    padding: 0;
+}
+.collapsed form{
+    display: none;
+}
+.collapsed span.info{
+    display: none;
+}
+.check-done{
+    display:block;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    color: #2ecc71;
+    font-size: 16px;
+    font-weight: 700;
+    float: right;
+    margin-top: -3px;
+}
+.colorpicker-wrapper{
+    float: right!important;
+}
+#font-picker{
+    float: right;
+    margin: 1.3em;
+}
+div[id^=font-picker] .dropdown-button{
+    background:rgb(230, 230, 230)!important;
+}
+
+/* Step progress bar */
+.stepper-wrapper {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 400px;
+    margin: auto;
+  }
+  .stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 9px;
+    flex: 1;
+  
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+  
+  /* Grey bar to go */
+  .stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 15px;
+    left: -50%;
+    z-index: 2;
+  }
+  .stepper-item .step-name{
+    text-align: center;
+    inline-size: 60px;
+    overflow-wrap: break-word;
+  }
+  
+  .stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 15px;
+    left: 50%;
+    z-index: 2;
+  }
+  
+  .stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ccc;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  
+  .stepper-item.active {
+    font-weight: bold;
+  }
+  
+  .stepper-item.completed .step-counter {
+    color: #6767b1;;
+    border-color: #6767b1;
+  }
+  
+  .stepper-item.completed::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #6767b1;;
+    width: 100%;
+    top: 15px;
+    left: 50%;
+    z-index: 3;
+  }
+  
+  .stepper-item:first-child::before {
+    content: none;
+  }
+  .stepper-item:last-child::after {
+    content: none;
+  }
+
+
+  /* Bottombar */
+.bottombar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #6767b1;
+    padding: 9px;
+    text-align: center;
+}
+.bottombar .btn{
+    background-color: #fff;
+    color: #6767b1;;
+}
+.bottombar .btn:hover{
+    background-color: rgb(240, 240, 240);
+}

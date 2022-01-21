@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import FileUpload from '../components/FileUpload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckSquare, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faWindowClose } from '@fortawesome/free-regular-svg-icons';
 import Header from '../components/Header';
 import {db, storage} from './../helpers/FireBaseConfig';
@@ -34,32 +34,49 @@ function ControlPanel() {
         });
     };
 
-    /* [START] get models */
-    const [models, setModels] = useState([]);
-
-    const modelRef = ref(db, 'users/' + 44 + '/models');
-    useEffect(() => {
-        // Get models once page renders
-        const getModels = async () => {
-            const res = await onValue(modelRef, (snapshot) => {
-                let data = snapshot.val();
-                let m = [];
-                if(data !== null){
-                    const keys = Object.keys(snapshot.val());
-                    keys.forEach((key) => {
-                        data[key].id = key;
-                        m.push(data[key]);
-                    });
-                }
-            setModels(m);
-            console.log(m[0].title);
+    const [models, setModels] = useState([{title: "No models uploaded", description: "You can upload a model in the 'Upload DMN model' section", file: {name:'', url:''}, id:'none'}]);
+    const modelRef = ref(db, 'users/' + uid + '/models/');
+    // Get models once page renders
+    const fetchData = async () => {
+        const data = await onValue(modelRef,(snapshot) => {
+        let data = snapshot.val();
+        let m = [];
+        if(data !== null){
+            const keys = Object.keys(snapshot.val());
+            keys.forEach((key) => {
+                data[key].id = key;
+                m.push(data[key]);
             });
-        };
-        return getModels();
-    }, []);
-    /* [END] get models */
+            setModels(m);
+        }
+    });
+    }
 
     
+
+    const makeTable = () => {
+        return (
+            models.map(
+                (model, index)=>{
+                    let className = "tg-0lax";
+                    if(index%2 === 0){
+                        className = "tg-0lax bg-grey";
+                    }
+                    return( 
+                        <tr key={model.file.url}>
+                            <td className={className}>{model.title}</td>
+                            <td className={className}>{model.description}</td>
+                            <td className={className}>{model.file.name}</td>
+                            <td className={className}>
+                                <a href={model.file.url} target="_blank"><FontAwesomeIcon icon={faDownload} alt="Download model" /></a>&nbsp;&nbsp;
+                                <button onClick={()=>{deleteModel(model.id, model.file.url)}} alt="Delete model"><FontAwesomeIcon icon={faTrashAlt} /></button>
+                            </td>
+                        </tr>
+                    );
+                }
+            )
+        );
+    };
 
     useEffect(() => {
         // Check if user is logged in
@@ -135,17 +152,7 @@ function ControlPanel() {
                     </tr>
                     </thead>
                     <tbody>
-                        {models.map((model, index) => (
-                            <tr key={index} className={'row-' + index%2}>
-                            <td>{model.title}</td>
-                            <td>{model.description}</td>
-                            <td>{model.file.name}</td>
-                            <td>
-                                <a href={model.file.url} target="_blank"><FontAwesomeIcon icon={faDownload} alt="Download model" /></a>&nbsp;&nbsp;
-                                <button onClick={()=>{deleteModel(model.id, model.file.url)}} alt="Delete model"><FontAwesomeIcon icon={faTrashAlt} /></button>
-                            </td>
-                            </tr>
-                        ))}
+                        {makeTable()}
                     </tbody>
                 </table>
             </section>

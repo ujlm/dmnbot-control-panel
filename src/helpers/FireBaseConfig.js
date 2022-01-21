@@ -1,6 +1,7 @@
-import { initializeApp  } from 'firebase/app';
+import {initializeApp} from 'firebase/app';
+import { getStorage } from 'firebase/storage';
+import { getDatabase } from "firebase/database";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyB3Nv0THIr8GC_lsgzn9zLHM4XUBV1XcTw",
     authDomain: "dmnbot-2b8f9.firebaseapp.com",
@@ -10,5 +11,7 @@ const firebaseConfig = {
     messagingSenderId: "963209271281",
     appId: "1:963209271281:web:515844222e624838851650"
     };
-const app = initializeApp(firebaseConfig);
-export default app;
+  
+  const app = initializeApp(firebaseConfig);
+  export const db = getDatabase();
+  export const storage = getStorage();

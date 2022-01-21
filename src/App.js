@@ -5,12 +5,9 @@ import ControlPanel from './pages/ControlPanel';
 import FinishUpload from './pages/FinishUpload';
 import ListModels from './pages/ListModels';
 
-function App() {
+function App() {    
   return (
     <div className="App">
-      <header>
-        <a href="/" className='brand'>DMN Bot</a>
-      </header>
       <Routes>
         <Route
           exact

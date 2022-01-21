@@ -1,10 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import { getDatabase, ref, set, onValue, push, child, update } from "firebase/database";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function FinishUpload() {
     const location = useLocation();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
+    const [uid, setUid] = useState(0);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            setUid(user.uid);
+            console.log('user is logged in');
+            console.log(uid);
+        } else {
+            // User is signed out
+            console.log('user is not logged in - go to sign in');
+            navigate('/SignIn', {state:{email: "test@student.kuleuven.be"}});
+        }
+    });
 
     const saveFile = (event) => {
         event.preventDefault();
@@ -20,10 +37,10 @@ function FinishUpload() {
                     url: location.state.file.url
                 }
             };
-        const fileKey = push(child(ref(db), 'models/')).key;
+        const fileKey = push(child(ref(db), uid + '/models/')).key;
 
         const updates = {};
-        updates['/users/' + 44 + '/models/' + fileKey] = fileData;
+        updates['/users/' + uid + '/models/' + fileKey] = fileData;
         update(ref(db), updates)
         .then(() => {
             console.log('Successfully saved');

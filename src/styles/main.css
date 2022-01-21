@@ -73,6 +73,9 @@ header.brand{
     padding: 15px;
     position: fixed;
 }
+header .signout{
+    float: right;
+}
 header, header a, header span{
     color: #060606;
     font-size: 14px;

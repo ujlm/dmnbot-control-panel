@@ -44,7 +44,7 @@ function FinishUpload() {
         update(ref(db), updates)
         .then(() => {
             console.log('Successfully saved');
-            navigate('/', {state:{success:true}});
+            navigate('/', {state:{success: "Model saved"}});
         })
         .catch((error) => {
             console.log(error);

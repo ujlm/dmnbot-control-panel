@@ -9,7 +9,6 @@ import {db, storage} from './../helpers/FireBaseConfig';
 import { deleteObject } from 'firebase/storage';
 import {ref as storageRef } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 import { ref, set, onValue, push, child, update, removeValue, getDocs, get } from "firebase/database";
 
 function ControlPanel() {
@@ -17,6 +16,7 @@ function ControlPanel() {
     const navigate = useNavigate();
 
     const [uid, setUid] = useState(0);
+    const [codeSnippet, setCodeSnippet] = useState("");
 
     const checkAuth = () => {
         const auth = getAuth();
@@ -25,6 +25,8 @@ function ControlPanel() {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 setUid(user.uid);
+                var code = '<script type="text/javascript" src="https://bit.ly/dmnbotbeta"></script><script type="text/javascript">document.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});</script>';
+                setCodeSnippet(code);
                 console.log(uid);
             } else {
                 // User is signed out
@@ -36,8 +38,8 @@ function ControlPanel() {
 
     /* [START] get models */
     const [models, setModels] = useState([]);
-
-    const modelRef = ref(db, 'users/' + 44 + '/models');
+    const temp_uid = "pnMbb9htcqdfoN5SfBxZxqzb2Qz2";
+    const modelRef = ref(db, 'users/' + temp_uid + '/models');
     useEffect(() => {
         // Get models once page renders
         const getModels = async () => {
@@ -83,7 +85,7 @@ function ControlPanel() {
             if(location.state.success){
                 return(
                     <section id="successmsg" className='optionGroup collapsed'>
-                        <h2>Model saved!</h2>
+                        <h2>{location.state.success}</h2>
                         <button onClick={closeMsgBox}><FontAwesomeIcon icon={faWindowClose} alt="Close notification" /></button>
                     </section>
                 );
@@ -123,6 +125,7 @@ function ControlPanel() {
             </section>
             {displaySuccess()}
             <FileUpload setFileData={getFileData} />
+
             <section className='optionGroup'>
                 <h3>List of files</h3>
                 <table className="tg">
@@ -148,6 +151,13 @@ function ControlPanel() {
                         ))}
                     </tbody>
                 </table>
+            </section>
+
+            <section className='optionGroup'>
+                <h3>Include your chatbot in your webpage</h3>
+                <p>Copy this code and paste it right before your closing body tag</p>
+                <textarea value={codeSnippet} >
+                </textarea>            
             </section>
         </div>
         </>

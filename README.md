@@ -10,5 +10,18 @@ This is the cloud control panel. The business makes an account and can upload DM
 When you’re ready, deploy your web app
 Put your static files (e.g., HTML, CSS, JS) in your app’s deploy directory (the default is “public”). Then, run this command from your app’s root directory:
 
+# How to run?
+Execute once
+"""
+yarn install
+"""
+
+Run app:
+"""
+yarn start
+"""
+
+
+## Not relevant right now (only for production)
 ### `yarn build`
 ### `firebase deploy`

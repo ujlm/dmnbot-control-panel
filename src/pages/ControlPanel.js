@@ -25,7 +25,7 @@ function ControlPanel() {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 setUid(user.uid);
-                var code = '<script type="text/javascript" src="https://bit.ly/dmnbotbeta"></script><script type="text/javascript">document.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});</script>';
+                var code = '<script type="text/javascript" src="https://bit.ly/dmnbotbeta"></script>\n<script type="text/javascript">\n\tdocument.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});\n</script>';
                 setCodeSnippet(code);
                 console.log(uid);
             } else {
@@ -38,9 +38,11 @@ function ControlPanel() {
 
     /* [START] get models */
     const [models, setModels] = useState([]);
-    const temp_uid = "pnMbb9htcqdfoN5SfBxZxqzb2Qz2";
+    let temp_uid = "pnMbb9htcqdfoN5SfBxZxqzb2Qz2";
+    //temp_uid = uid;
     const modelRef = ref(db, 'users/' + temp_uid + '/models');
     useEffect(() => {
+        checkAuth();
         // Get models once page renders
         const getModels = async () => {
             const res = await onValue(modelRef, (snapshot) => {

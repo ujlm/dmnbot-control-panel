@@ -6,6 +6,10 @@ function SignUp() {
     const auth = getAuth();
     const navigate = useNavigate();
 
+    const toSignUp = () => {
+        navigate('/SignUp', {});
+    };
+
     const signIn = (event) => {
         event.preventDefault();
     
@@ -37,7 +41,7 @@ function SignUp() {
                         <tbody>
                             <tr>
                                 <td>
-                                <label for='email'>Email (KUL address):</label>
+                                <label for='email'>Email:</label>
                                 </td>
                                 <td>
                                 <input type="email" name="email" placeholder='email' />
@@ -56,6 +60,9 @@ function SignUp() {
                     <br/>
                     <center><input type='submit' className='btn' value='Login' /></center>
                 </form>
+            </section>
+            <section className='optionGroup'>
+                No account? <button onClick={toSignUp} className='btn'>Create one here</button>
             </section>
         </div>
     );

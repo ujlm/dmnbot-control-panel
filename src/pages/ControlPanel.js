@@ -136,7 +136,7 @@ function ControlPanel() {
                         <th className="tg-0lax">Title</th>
                         <th className="tg-0lax">Description</th>
                         <th className="tg-0lax">Filename</th>
-                        <th className="tg-0lax">Actions</th>
+                        <th className="tg-0lax tg-actions">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -155,7 +155,7 @@ function ControlPanel() {
                 </table>
             </section>
 
-            <section className='optionGroup'>
+            <section className='optionGroup codebox'>
                 <h3>Include your chatbot in your webpage</h3>
                 <p>Copy this code and paste it right before your closing body tag</p>
                 <textarea value={codeSnippet} >

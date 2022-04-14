@@ -30,7 +30,7 @@ function SignUp() {
                         <tbody>
                             <tr>
                                 <td>
-                                <label for='email'>Email (KUL address):</label>
+                                <label for='email'>Email:</label>
                                 </td>
                                 <td>
                                 <input type="email" name="email" placeholder='email' />

@@ -5,7 +5,6 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import ControlPanel from './pages/ControlPanel';
 import FinishUpload from './pages/FinishUpload';
-import ListModels from './pages/ListModels';
 
 function App() {    
   return (
@@ -27,10 +26,6 @@ function App() {
           exact
           path="/FinishUpload"
           element={<FinishUpload />} />
-        <Route
-          exact
-          path="/listModels"
-          element={<ListModels />} />
       </Routes>
     </div>
   );

@@ -25,7 +25,7 @@ function ControlPanel() {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 setUid(user.uid);
-                var code = '<script type="text/javascript" src="https://bit.ly/dmnbotbeta"></script>\n<script type="text/javascript">\n\tdocument.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});\n</script>';
+                var code = '<script type="text/javascript" src="https://bit.ly/dominobotjs"></script>\n<script type="text/javascript">\n\tdocument.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});\n</script>';
                 setCodeSnippet(code);
                 console.log(uid);
             } else {

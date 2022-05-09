@@ -21,6 +21,9 @@ Run app:
 yarn start
 """
 
+## Troubleshooting
+- Update Nodejs to latest version
+- 'react-scripts not recognized': run yarn add react-scripts and try again
 
 ## Not relevant right now (only for production)
 ### `yarn build`

@@ -12,11 +12,13 @@ Put your static files (e.g., HTML, CSS, JS) in your app’s deploy directory (th
 
 # How to run?
 Execute once
+
 """
 yarn install
 """
 
 Run app:
+
 """
 yarn start
 """

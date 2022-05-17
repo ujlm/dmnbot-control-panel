@@ -41,7 +41,7 @@ function SignUp() {
                         <tbody>
                             <tr>
                                 <td>
-                                <label for='email'>Email:</label>
+                                <label htmlFor='email'>Email:</label>
                                 </td>
                                 <td>
                                 <input type="email" name="email" placeholder='email' />
@@ -49,7 +49,7 @@ function SignUp() {
                             </tr>
                             <tr>
                                 <td>
-                                    <label for='password'>Password (at least 6 characters):</label>
+                                    <label htmlFor='password'>Password (at least 6 characters):</label>
                                 </td>
                                 <td>
                                     <input type='password' name='password' />

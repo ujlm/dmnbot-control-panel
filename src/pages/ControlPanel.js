@@ -15,8 +15,10 @@ function ControlPanel() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [uid, setUid] = useState(0);
+    let uid = 0;
     const [codeSnippet, setCodeSnippet] = useState("");
+    const [models, setModels] = useState([]);
+    let modelRef = "";
 
     const checkAuth = () => {
         const auth = getAuth();
@@ -24,10 +26,20 @@ function ControlPanel() {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
-                setUid(user.uid);
+                uid = user.uid;
+                console.log(uid);
                 var code = '<script type="text/javascript" src="https://bit.ly/dominobotjs"></script>\n<script type="text/javascript">\n\tdocument.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});\n</script>';
                 setCodeSnippet(code);
-                console.log(uid);
+
+                /* [START] get models */
+                let temp_uid = uid;
+                if(temp_uid === undefined || temp_uid == 0){
+                    // Hardcoded uid for poc
+                    temp_uid = "pnMbb9htcqdfoN5SfBxZxqzb2Qz2";
+                }
+                modelRef = ref(db, 'users/' + temp_uid + '/models');
+                getModels();
+                /* [END] get models */
             } else {
                 // User is signed out
                 console.log('user is not logged in - go to sign in');
@@ -36,39 +48,22 @@ function ControlPanel() {
         });
     };
 
-    /* [START] get models */
-    const [models, setModels] = useState([]);
-    let temp_uid = "pnMbb9htcqdfoN5SfBxZxqzb2Qz2";
-    //temp_uid = uid;
-    const modelRef = ref(db, 'users/' + temp_uid + '/models');
-    useEffect(() => {
-        checkAuth();
-        // Get models once page renders
-        const getModels = async () => {
-            const res = await onValue(modelRef, (snapshot) => {
-                let data = snapshot.val();
-                let m = [];
-                if(data !== null){
-                    const keys = Object.keys(snapshot.val());
-                    keys.forEach((key) => {
-                        data[key].id = key;
-                        m.push(data[key]);
-                    });
-                }
-            setModels(m);
-            console.log(m[0].title);
-            });
-        };
-        return getModels();
-    }, []);
-    /* [END] get models */
-
-    
-
-    useEffect(() => {
-        // Check if user is logged in
-        checkAuth();
-    }, []);
+    // Get models once page renders
+    const getModels = async () => {
+        const res = await onValue(modelRef, (snapshot) => {
+            let data = snapshot.val();
+            let m = [];
+            if(data !== null){
+                const keys = Object.keys(snapshot.val());
+                keys.forEach((key) => {
+                    data[key].id = key;
+                    m.push(data[key]);
+                });
+            }
+        setModels(m);
+        console.log(m[0].title);
+        });
+    };
 
     const getFileData = (filedata) => {
         console.log("File uploaded: " + filedata.url);
@@ -118,6 +113,10 @@ function ControlPanel() {
         set(child(modelRef, id), null);
     };
 
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
     return(
         <>
         <Header />
@@ -158,7 +157,7 @@ function ControlPanel() {
             <section className='optionGroup codebox'>
                 <h3>Include your chatbot in your webpage</h3>
                 <p>Copy this code and paste it right before your closing body tag</p>
-                <textarea value={codeSnippet} >
+                <textarea value={codeSnippet} readOnly={true} >
                 </textarea>            
             </section>
         </div>

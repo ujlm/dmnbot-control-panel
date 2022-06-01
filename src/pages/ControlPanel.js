@@ -63,7 +63,6 @@ function ControlPanel() {
                 });
             }
         setModels(m);
-        console.log(m[0].title);
         });
     };
 

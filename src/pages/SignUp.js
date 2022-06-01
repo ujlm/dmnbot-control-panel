@@ -1,7 +1,9 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
     const auth = getAuth();
+    const navigate = useNavigate();
 
     const createUser = (event) => {
         event.preventDefault();
@@ -12,6 +14,7 @@ function SignUp() {
           const user = userCredential.user;
           console.log(user);
           console.log(user.uid);
+          navigate('/', {state: {success: "Account created: " + user.email}});
         })
         .catch((error) => {
           const errorCode = error.code;

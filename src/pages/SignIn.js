@@ -20,7 +20,7 @@ function SignUp() {
           console.log('logged in');
           console.log(user);
           console.log(user.uid);
-            navigate('/', {state: {success: "Logged in as " + user.email}});
+          navigate('/', {state: {success: "Logged in as " + user.email}});
         })
         .catch((error) => {
           const errorCode = error.code;

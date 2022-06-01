@@ -9,15 +9,16 @@ import {db, storage} from './../helpers/FireBaseConfig';
 import { deleteObject } from 'firebase/storage';
 import {ref as storageRef } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ref, set, onValue, push, child, update, removeValue, getDocs, get } from "firebase/database";
+import { ref, set, onValue, push, child, update, remove, getDocs, get } from "firebase/database";
 
 function ControlPanel() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    let uid = 0;
+    var uid = 0;
     const [codeSnippet, setCodeSnippet] = useState("");
     const [models, setModels] = useState([]);
+    const [cUid, setCUid] = useState(1);
     let modelRef = "";
 
     const checkAuth = () => {
@@ -27,6 +28,7 @@ function ControlPanel() {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 uid = user.uid;
+                setCUid(user.uid);
                 console.log(uid);
                 var code = '<script type="text/javascript" src="https://bit.ly/dominobotjs"></script>\n<script type="text/javascript">\n\tdocument.addEventListener("DOMContentLoaded", function () {initChatbox("' + user.uid + '")});\n</script>';
                 setCodeSnippet(code);
@@ -110,7 +112,8 @@ function ControlPanel() {
         });
 
         // 2. Delete entry from database
-        set(child(modelRef, id), null);
+        let rRef = ref(db, 'users/' + cUid + '/models/' + id);
+        set(rRef, null);
     };
 
     useEffect(() => {
